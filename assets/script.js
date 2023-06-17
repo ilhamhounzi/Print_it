@@ -70,7 +70,6 @@ function slideRight () {
 
     spot = (spot < slides.length-1) ? spot+1 : 0;//Step 5: Set up conditions for infinite scrolling on the carousel
 
-    dots[spot].classList.add("dot_selected");
 	setBannerSpot(spot);// Call the function that displays the slides
    
 }
@@ -83,7 +82,6 @@ function slideLeft () {
 
 	spot = (spot > 0 ) ? spot-1 : slides.length-1;//Step 5: Set up conditions for infinite scrolling
 
-    dots[spot].classList.add("dot_selected");
 	setBannerSpot(spot);
 
 }
