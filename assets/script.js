@@ -19,64 +19,71 @@ const slides = [
 
 /*Etape 2: Add Event Listeners on arrows */
 let arrowRight = document.querySelector(".arrow_right");
-let arrowLeft = document.querySelector(".arrow_left");
+let arrowLeft = document.querySelector("arrow_left");
 
 //construction of variables
 let dotsClass = document.querySelector(".dots");
 let bannerId = document.querySelector("#banner");
 let bannerImages = document.querySelector(".banner-img");
-let bannerText = bannerId.getElementsByTagName("p")[0]; 
+let bannerText = bannerId.getElementsByTagName("p")[0];
+let dots = [];
 
-let dots = [];  
+//Creating arrow event listeners
+//Add function to allow scrolling: step 4
+arrowLeft.addEventListener("click", slideLeft);
+arrowRight.addEventListener("click", slideRight);
 
-arrowLeft.addEventListener("click", () => click("left"));
-arrowRight.addEventListener("click", () => click("right"));
 
 
-// Step 3: Add bullet points to the slider
- for (let i = 0; i < slides.length; i++) {
-    const dot = document.createElement("div");
+// Step 3: Add bullet points to the slider :
+for (let i = 0; i < slides.length; i++) { // Use a 'for' loop to have as many points as slides
+   	const dot = document.createElement("div");
 	dot.classList.add("dot");
-	dots.push(dot); 
-	dotsClass.appendChild(dot) 
-  }
-  
-dots[0].classList.add("dot_selected"); 
-let spot = 0;//Création de la variable du compteur
+	dots.push(dot);//Add in the HTML
+	dotsClass.appendChild(dot);//Add in the HTML
+}
+
+
+dots[0].classList.add("dot_selected");//Assignment of the selected point to the first slide
+let spot = 0;//Create the counter variable
 
 
 // Step 4: Modify the slide
 function setBannerSpot(spot) {
 
-	const imageSource = "assets/images/slideshow/" + slides[spot].image;
-	bannerImages.setAttribute("src", imageSource);	/*Step 4: insertion of the image path.*/
+    const imageSource = "assets/images/slideshow/" + slides[spot].image;
+	bannerImages.setAttribute("src", imageSource);//Step 4: insertion of the image path.
 
-	/*Step 4: slide text integration*/
-	const imageText = slides[spot].tagLine; 
-	bannerText.innerHTML = imageText; /*slide text integration*/
+	const imageText = slides[spot].tagLine;
+	bannerText.innerHTML = imageText;//Step 4: slide text integration
 
-	// Ajout du point sélectionné à la nouvelle slide
-	dots[spot].classList.add("dot_selected"); /*Step 4: change the active bullet point to the next one;*/
-}
+    dots[spot].classList.add("dot_selected"); //Step 4: change the active bullet point to the next one;
 
-//Step 4: Change on button click;
-function click (position) {
-
-    dots[spot].classList.remove("dot_selected");
-    position = (position === "right") ? slideRight() : slideLeft();
-	setBannerSpot(spot);
 }
 
 
-/*Step 5: Set up conditions for infinite scrolling on the carousel*/
+//Step 4: added the function that allows you to modify the slide by clicking on the arrow
 function slideRight () {
 
-	spot = (spot < slides.length-1) ? spot+1 : 0;
+    //Allows you to have a single active point corresponding to the selected slide.
+    dots[spot].classList.remove("dot_selected");
+
+    spot = (spot < slides.length-1) ? spot+1 : 0;//Step 5: Set up conditions for infinite scrolling on the carousel
+
+	setBannerSpot(spot);// Call the function that displays the slides
+   
 }
-	
+
+
+//Step 4: Added the function that allows you to modify the slide by clicking on the arrow
 function slideLeft () {
 
-	spot = (spot > 0 ) ? spot-1 : slides.length-1;	
-}
+	dots[spot].classList.remove("dot_selected");
 
+	spot = (spot > 0 ) ? spot-1 : slides.length-1;//Step 5: Set up conditions for infinite scrolling
+
+	setBannerSpot(spot);
+
+}
+	
 
